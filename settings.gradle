@@ -1,0 +1,1 @@
+include ':app', ':mylibrary', ':aws-android-sdk-apigateway-core-1.0.0', ':mylibrary2'
