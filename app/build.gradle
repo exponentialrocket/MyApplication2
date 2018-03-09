@@ -40,7 +40,7 @@ dependencies {
 
 
 ext {
-    bintrayRepo = 'exponentialrocket'
+    bintrayRepo = 'myApplication2'
     bintrayName = 'myApplication2'   // Has to be same as your library module name
 
     publishedGroupId = 'com.github.owc_android.myapplication.test'
