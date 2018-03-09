@@ -4,13 +4,12 @@ apply plugin: 'com.jfrog.bintray'
 
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
+    buildToolsVersion "27.0.1"
+
     defaultConfig {
-
-
-
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion 14
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -34,55 +33,38 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
-group = 'com.github.hathibelagal.librarytutorial'
-version = '1.0.2'
 
-task generateSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier 'sources'
+ext {
+    bintrayRepo = 'exponentialrocket'
+    bintrayName = 'myApplication2'   // Has to be same as your library module name
+
+    publishedGroupId = 'com.github.owc_android.myapplication.test'
+    libraryName = 'myApplication2'
+    artifact = 'myApplication2'     // Has to be same as your library module name
+
+    libraryDescription = 'Android Library to make any text into Toast with Awesome prepended to the text'
+
+    // Your github repo link
+    siteUrl = 'https://github.com/exponentialrocket/MyApplication2'
+    gitUrl = 'https://github.com/exponentialrocket/MyApplication2.git'
+    githubRepository= 'exponentialrocket/MyApplication2'
+
+    libraryVersion = '1.0'
+
+    developerId = 'vivek'
+    developerName = 'Vivek Kejriwal'
+    developerEmail = 'vivek.kej@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
-task generateJavaDocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath()
-            .join(File.pathSeparator))
-}
-
-task generateJavaDocsJar(type: Jar) {
-    from generateJavaDocs.destinationDir
-    classifier 'javadoc'
-}
-generateJavaDocsJar.dependsOn generateJavaDocs
-
-bintray {
-    user = 'androidtech'
-    key = '036029c9ae325b110431089169b9a1347c8b8776'
-    pkg {
-        repo = 'maven'
-        name = 'maven'
-
-        version {
-            name = '1.0.2'
-            desc = 'My test upload'
-            released  = new Date()
-            vcsTag = '1.0.2'
-        }
-
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/vinuodedra42/MyRepository.git'
-        websiteUrl = 'https://github.com/vinuodedra42/MyRepository'
-    }
-    configurations = ['archives']
-}
-
-artifacts {
-    archives generateJavaDocsJar
-    archives generateSourcesJar
-}
+// Place it at the end of the file
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
